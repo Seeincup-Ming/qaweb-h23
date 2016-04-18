@@ -1,0 +1,12 @@
+filesave:
+  savepath: static/Uploads
+filetypes:
+- max: 5
+  type: apk
+- max: 5
+  type: ipa
+- max: 7
+  type: log
+locked: 1
+pagemaxline:
+  maxline: 50

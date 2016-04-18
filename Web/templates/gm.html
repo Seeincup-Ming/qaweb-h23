@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block head_extra %}
+{% endblock %}
+{% block title %}Home{%endblock%}
+
+{% block user_login %}
+        <!--
+<li>
+    <a class="navbar-brand" href="#">
+        <strong>{{request.cookies.get('username')}}</strong>
+    </a>
+</li>
+<li>
+    <a class="navbar-brand" href="/logout">
+        Logout
+    </a>
+</li>
+-->
+{%endblock%}
+
+{% block body %}
+
+<hr/>
+
+
+<h4>Gm 指令说明</h4>
+<table class="table" style = "vertical-align:bottom">
+    <tbody>
+    {% for g in gm %}
+    <tr>
+        <td>
+        {{g}}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+
+
+
+
+</table>
+
+<!-- Logs modal -->
+<div class="modal fade bs-logs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">Logs</h4>
+            </div>
+            <div class="modal-body">
+                <pre id="console">Loading...</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a class="btn btn-default" id="model-anchor" href="#">View Raw</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends "layout.html" %}
+{% block head_extra %}
+{% endblock %}
+{% block title %}Home{%endblock%}
+
+{% block user_login %}
+<!--
+<li>
+    <a class="navbar-brand" href="#">
+        <strong>{{request.cookies.get('username')}}</strong>
+    </a>
+</li>
+<li>
+    <a class="navbar-brand" href="/logout">
+        Logout
+    </a>
+</li>
+-->
+{%endblock%}
+
+{% block body %}
+
+<hr/>
+
+
+<h4>Tool Box</h4>
+<table class="table" style = "vertical-align:bottom">
+
+    <!--<tr>-->
+        <!--<td>-->
+            <!--<h2>Gm指令说明</h2>-->
+        <!--</td>-->
+        <!--<td style = "vertical-align:bottom">-->
+            <!--<a style = "height:50%"  class="btn btn-info btn-xs" target='_blank' href="/gmcom">查看详情</a>-->
+        <!--</td>-->
+    <!--</tr>-->
+
+    <!--<tr>-->
+        <!--<td>-->
+            <!--<h2>Apk下载</h2>-->
+        <!--</td>-->
+        <!--<td></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<form action="/download" method="get" enctype="multipart/form-data">-->
+            <!--<td>-->
+            <!--<h4><label class="radio-inline">-->
+                <!--<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="apk" > 开发版-->
+            <!--</label>-->
+            <!--<label class="radio-inline">-->
+                <!--<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="stable"> 稳定版-->
+            <!--</label></h4>-->
+            <!--</td>-->
+            <!--<td style = "vertical-align:bottom">-->
+                <!--<input style = "height:100%" class="btn btn-info btn-xs" type="submit" value="下载">-->
+            <!--</td>-->
+        <!--</form>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>-->
+        <!--<h2><span class="key" onclick="fn(this,1)">更新到指定版本</span></h2>-->
+        <!--</td>-->
+        <!--<td style = "vertical-align:bottom">-->
+            <!--<a style = "height:50%"  class="btn btn-info btn-xs" target='_blank' href="/serverup">进入</a>-->
+        <!--</td>-->
+    <!--</tr>-->
+
+    <tr>
+        <td>
+        <h2><span class="key" onclick="fn(this,1)">内测建议查看</span></h2>
+        </td>
+        <td style = "vertical-align:bottom">
+            <a style = "height:50%"  class="btn btn-info btn-xs" target='_blank' href="/show/bugs">进入</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <h2><span class="key" onclick="fn(this,1)">Svn-Lock</span></h2>
+        </td>
+        <td style = "vertical-align:bottom">
+            <a style = "height:50%"  class="btn btn-info btn-xs" target='_blank' href='/svnlock/svnview/1'>进入</a>
+        </td>
+    </tr>
+
+
+
+
+</table>
+
+<!-- Logs modal -->
+<div class="modal fade bs-logs-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">Logs</h4>
+            </div>
+            <div class="modal-body">
+                <pre id="console">Loading...</pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a class="btn btn-default" id="model-anchor" href="#">View Raw</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js"></script>
+<script>
+$(function(){
+		ZeroClipboard.config( { swfPath: "//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.swf" } );
+		var client = new ZeroClipboard($(".copy-button"));
+		client.on( "ready", function( readyEvent ) {
+			client.on( "aftercopy", function( event ) {
+				//event.target.style.display = "none";
+				alert("Copied text to clipboard! ");// + event.data["text/plain"] );
+			});
+		});
+
+
+		var $console = $("#console");
+		$(".ajax-json-model").
+			attr("data-target", ".bs-logs-modal-lg").
+			attr("data-toggle", "modal")
+		$("a.ajax-json-model").each(function(e){
+					$(this).attr("href", $(this).attr("data-source"));
+				});
+
+		$(".ajax-json-model").click(function(e){
+			var prompt = $(this).attr("prompt") || "wait...";
+			var href=$(this).attr("href") || $(this).attr("data-source");
+			$("#model-anchor").attr("href", href);
+			$console.text(prompt);
+			$.get(href, function(d){
+				$console.text(d.message);
+			}, 'json');
+		});
+
+		$("a.ajax-json").click(function(e){
+			e.preventDefault();
+			var href=$(this).attr("href");
+			var prompt = $(this).attr("prompt") || "wait...";
+			$.getJSON(href, function(d){
+				alert(d.message);
+			});
+		});
+		$("button.ajax").click(function(e){
+			$console.text("Loading ...");
+			var href=$(this).attr("data-source");
+			$("#model-anchor").attr("href", href);
+			$.get(href, function(d){
+				$console.text(d);
+			}, 'text');
+		});
+		$(".click-select").click(function(e){
+			$(e.target).select();
+		});
+		/* no use
+		$(".delete-confirm").click(function(e){
+			return confirm('确实要删除吗?');
+		});
+		*/
+});
+
+var h = new Array(0,380,25,25,25);
+var tf = new Array(false,true,false,false,false);
+var minheight = 25;
+var maxheight = 380;
+function fn(likey,tag){
+	if (tf[tag]){
+		if (h[tag]>=minheight){
+			document.getElementById("main"+tag).style.height = h[tag] + "px";
+			setTimeout(function(){fn(likey,tag)},1);
+			h[tag] -= 10;
+		} else {
+			/*likey.innerHTML = "展开";*/
+			tf[tag] = !tf[tag];
+			h[tag] += 10;
+		}
+	} else {
+		if (h[tag]<=maxheight){
+			document.getElementById("main"+tag).style.height = h[tag] + "px";
+			setTimeout(function(){fn(likey,tag)},1);
+			h[tag] += 10;
+		} else {
+			/*likey.innerHTML = "折叠";*/
+			tf[tag] = !tf[tag];
+			h[tag] -= 10;
+		}
+	}
+}
+
+
+
+
+</script>
+
+{% endblock %}

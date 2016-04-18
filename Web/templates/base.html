@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="/content/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/content/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="/content/css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/content/css/bootstrap-responsive.min.css" />
+		{% block css %}{% endblock %}
+	</head>
+	<body>
+        <div class="container" id="mainContainer" style ="width:1300px">
+			{% block content %}{% endblock %}
+			<footer>
+				<hr />
+				{% block footer %}
+				<p><small class="muted">Project X9, QA Team</small></p>
+				{% endblock %}
+			</footer>
+		</div>
+    </body>
+</html>

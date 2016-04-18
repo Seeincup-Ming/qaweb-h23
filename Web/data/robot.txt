@@ -1,0 +1,58 @@
+﻿战斗中的GM指令：
+    控制玩家类: 
+    	1. red/blue A skill B C 红方/蓝方A号玩家在下一回合释放B技能，技能等级为C
+    	2. red/blue A buff B C D 红方/蓝方A号玩家添加B buff，buff等级为C，buff持续回合为D
+    	3. red/blue A passive B C 红方/蓝方A号玩家添加B被动技能，被动技能等级为C
+    	4. red/blue A hp B 设置红方/蓝方A号玩家血量为B
+    	5. red/blue A eng B 设置红方/蓝方A号玩家能量为B
+    	6. red/blue A kill red/blue B 红方/蓝方A号玩家杀死红方/蓝方B号玩家
+        7. default * 设置默认指令,比如default red 1 skill 1 1 就是将默认指令设置成
+            red 1 skill 1 1,之后不需要设置指令直接点击command就会执行red 1 skill 1 1。
+            要取消默认指令可以直接打一个default就行了
+        8. group red/blue token A B 给红方或者蓝方阵营加上令牌A,B表示令牌编号和等级
+        9. red/blue A revive 表示红方或者蓝方卡牌复活 
+    热更类：
+    	1. update data 游戏运行时热更数据文件
+    	2. update vfx name 游戏运行时热更name特效
+    代码类：
+    	1. code *** 游戏运行时，可以运行简单代码，比如查看table内的值等。
+    游戏控制类：
+    	1. -win/-lose 游戏运行时直接输入命令让己方胜利或者失败
+战斗外的GM指令：
+    服务器时间控制：
+        1. set_server_time time 设置服务器时间为time（并且不会流逝 ），仅在该帐户运行的game进程生效
+        2. reset_server_time 恢复服务器时间，仅在该帐户运行的game进程生效
+    帐户相关：
+        1. add_card card_id 本帐号获得一张id为card_id的卡牌
+		2. add_gold amount 增加本账号元宝
+		3. add_silver amount 增加本账号银两
+		4. add_strength amount 增加本账号体力（总量不能超过上限（50））
+		5. add_active 增加本账号体力值（总量不能超过上限（20）允许负值） 
+		6. add_fragment [card_id] [amount] 增加card_id的碎片amount个
+		7. add_prop [prop_id] [amount] 增加prop_id的道具amount个，允许负值
+		8. top_pve level1 level2 level3 直接更新玩家达到此pve的关卡
+		9. add_exp exp 为玩家添加经验
+		10. add_card_exp card_id exp 为某卡牌添加经验
+		11. update_level level 更新玩家等级到level级，经验值清零
+		12. del_card card_id 删除指定id卡牌
+		13. add_form form_id 增加指定id的阵法
+		14. del_form form_id 删除指定id的阵法
+		15. empty_package 清空背包
+		16. update_card_level card_id card_level 将指定id卡牌更新到指定等级
+		17. del_frags 清空所有碎片
+		18. add_system_award award_id 给当前玩家发放系统奖励
+	账号其他操作:
+		1. vip [vip_level] 直接将玩家的vip等级改为vip_level
+		2. add_ghost [amount] 增加玩家魂值（允许负值）
+		3. super_refresh 1 刷新店铺数据（点击店铺有trace的用这个指令）
+		4. add_credit [amount] 增加竞技场积分
+		5. system_msg 3 msg 发送系统通知
+		
+    游戏流程：
+        1. pve level1 level2 level3 star 进行一场关卡为[level1][level2][level3]的PVE战斗，星级为star
+        2. normal player_name 点击“战个痛快”，进行与对手player_name的普通pvp战斗
+        3. arena player_name 点击“战个痛快”，进行与对手player_name的竞技场pvp战斗
+        4. daily difficulty spot 进行一场当天的难度为difficulty、第spot张图的日常战斗
+        5. chaspecrank number 和等级为number的玩家进行PK，不能和自己pk 
+        6. changerank number 更换玩家当前的排名为number排名 
+        7. leftcha number 竞技场中设置当前的玩家的挑战次数

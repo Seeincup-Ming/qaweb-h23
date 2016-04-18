@@ -1,0 +1,6 @@
+#!/bin/sh
+REPO=$1
+TXN=$2
+cd "$(dirname "$0")"
+python main.py $REPO $TXN
+exit $?;

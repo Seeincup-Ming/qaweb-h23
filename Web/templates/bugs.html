@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block head_extra %}
+{% endblock %}
+{% block title %}Home{%endblock%}
+
+{% block user_login %}
+{%endblock%}
+
+{% block body %}
+
+<hr/>
+
+
+<h4>Bugs & Advices</h4>
+<table class="table table-striped table-hover table-condensed table-recordlist">
+    <thead>
+    <tr>
+        <th>内容</th>
+        <th>作者</th>
+        <th>提交时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for b in bugs %}
+    <tr>
+        <td>
+            {{b.content}}
+        </td>
+        <td>
+            {{b.author}}
+        </td>
+        <td>
+            {{b.time}}
+        </td>
+    </tr>
+    </tbody>
+    {% endfor %}
+
+
+
+</table>
+
+
+
+
+{% endblock %}
